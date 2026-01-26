@@ -1,0 +1,22 @@
+[
+    {
+        "amount": 4500.0,
+        "category": "cricket bat",
+        "note": "sports"
+    },
+    {
+        "amount": 150.0,
+        "category": "food",
+        "note": "breakfast"
+    },
+    {
+        "amount": 250.0,
+        "category": "food",
+        "note": "lunch"
+    },
+    {
+        "amount": 200.0,
+        "category": "food",
+        "note": "dinner"
+    }
+]
