@@ -113,13 +113,14 @@ def delete_expense(expense_id, user_id):
     conn = get_connection()
     cur = conn.cursor()
 
-    cur.execute("""
-        DELETE FROM expenses
-        WHERE id = ? AND user_id = ?
-    """, (expense_id, user_id))
+    cur.execute(
+        "DELETE FROM expenses WHERE id = ? AND user_id = ?",
+        (expense_id, user_id)
+    )
 
     conn.commit()
     conn.close()
+
 
 
 # ================= AGGREGATES =================
