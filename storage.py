@@ -1,6 +1,7 @@
 print("✅ MY storage.py LOADED")
 
 import sqlite3
+from datetime import date
 
 DB_NAME = "expenses.db"
 
@@ -10,6 +11,22 @@ def get_connection():
     conn.row_factory = sqlite3.Row
     return conn
 
+def get_daily_total(user_id):
+    conn = get_connection()
+    cur = conn.cursor()
+
+    today = date.today().isoformat()  # '2026-01-28'
+
+    cur.execute("""
+        SELECT COALESCE(SUM(amount), 0)
+        FROM expenses
+        WHERE user_id = ?
+        AND date = ?
+    """, (user_id, today))
+
+    total = cur.fetchone()[0]
+    conn.close()
+    return total
 
 # ================= TABLE =================
 
@@ -113,13 +130,14 @@ def delete_expense(expense_id, user_id):
     conn = get_connection()
     cur = conn.cursor()
 
-    cur.execute("""
-        DELETE FROM expenses
-        WHERE id = ? AND user_id = ?
-    """, (expense_id, user_id))
+    cur.execute(
+        "DELETE FROM expenses WHERE id = ? AND user_id = ?",
+        (expense_id, user_id)
+    )
 
     conn.commit()
     conn.close()
+
 
 
 # ================= AGGREGATES =================

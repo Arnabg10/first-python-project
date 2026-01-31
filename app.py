@@ -191,9 +191,10 @@ def delete(expense_id):
         flash("Unauthorized delete attempt ❌", "error")
         return redirect(url_for("index"))
 
-    storage.delete_expense(expense_id)
+    storage.delete_expense(expense_id, user_id)  # ✅ FIX HERE
     flash("Expense deleted 🗑", "success")
     return redirect(url_for("index"))
+
 
 
 # ================= RUN =================
